@@ -39,11 +39,8 @@ def ap_login():
     cookies = response.cookies
     headers = response.headers
     headers['X-Csrf-Token'] = cookies.get('csrf_token')
-    headers_dict = dict()
-    for name, hdr in headers.__dict__['_store'].items():
-        headers_dict[hdr[0]] = hdr[1]
     unify_session = {
-        'headers': headers_dict,
+        'headers': dict(headers),
         'cookies': cookies.get_dict()
     }
     print(response.text)
@@ -78,7 +75,7 @@ def led_status(AP_mac, on=True):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser(usage='To turn on/off location AP LED blinking',
+    parser = ArgumentParser(usage='To turn on/off locating AP LED blinking',
                             formatter_class=ArgumentDefaultsHelpFormatter,
                             description='Run PyRock tests')
     parser.add_argument('--off', action='store_false', dest='set_state_ON')
